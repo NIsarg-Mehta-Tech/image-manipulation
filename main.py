@@ -24,6 +24,7 @@ while True:
     elif key%256 == 32:
         img_name = "frame_{}.jpg".format(img_counter)
         cv.imwrite(os.path.join(save_dir, img_name), frame)
+        cv.imshow("Original File", frame)
         print("Frame saved as", img_name)
         img_counter += 1
 
@@ -56,6 +57,7 @@ for idx, img in enumerate(image_list):
     if idx == 0:
         processed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
         processed = cv.cvtColor(processed, cv.COLOR_GRAY2BGR)
+        cv.imshow(titles[idx], processed)
         label = titles[idx]
     
     elif idx == 1:
@@ -66,10 +68,12 @@ for idx, img in enumerate(image_list):
 
         M = cv.getRotationMatrix2D(center, angle, scale)
         processed = cv.warpAffine(img, M, (cols, rows))
+        cv.imshow(titles[idx], processed)
         label = titles[idx]
 
     elif idx == 2:
         processed = img[100:(cols-290), 200:(rows-500)]
+        cv.imshow(titles[idx], processed)
         label = titles[idx]
 
     elif idx == 3:
@@ -77,11 +81,13 @@ for idx, img in enumerate(image_list):
                 [0, 1, 50]])
 
         processed =  cv.warpAffine(img, T, (cols, rows))
+        cv.imshow(titles[idx], processed)
 
         label = titles[idx]
     
     elif idx == 4:
         processed = cv.GaussianBlur(img, (7,7),10)
+        cv.imshow(titles[idx], processed)
         label = titles[idx]
 
     processed = cv.resize(processed, (cols, rows))
